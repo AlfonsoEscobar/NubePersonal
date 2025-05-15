@@ -2,7 +2,7 @@ const { accessDir } = require('./baseDir');
 const path = require('path');
 const fs = require('fs');
 
-const BASE_DIR = path.join('D:\\Cursos\\Proyectos\\NubePersonal', 'storage');
+const BASE_DIR = path.join(__dirname, '..', 'storage');
 
 const createFolder = (req, res) => {
 

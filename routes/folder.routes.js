@@ -23,6 +23,6 @@ router.get('/listFolder', listFolder);
 
 router.delete('/deleteFolder', deleteFolder);
 
-router.post('/renameFolder', renameFolder);
+router.patch('/renameFolder', renameFolder);
 
 module.exports = router;
