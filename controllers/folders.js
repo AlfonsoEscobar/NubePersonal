@@ -1,4 +1,4 @@
-const { accessDir } = require('./baseDir');
+const { accessDir } = require('../utils/baseDir');
 const path = require('path');
 const fs = require('fs');
 

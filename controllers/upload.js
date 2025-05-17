@@ -1,5 +1,5 @@
 
-const { accessDir } = require('./baseDir');
+const { accessDir } = require('../utils/baseDir');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');

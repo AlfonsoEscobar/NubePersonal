@@ -49,6 +49,9 @@ class Server{
         this.app.use(this.path + '/upload', require('../routes/upload.routes'));
         
         this.app.use(this.path + '/file', require('../routes/file.routes'));
+
+        this.app.use(this.path + '/user', require('../routes/auth.routes'));
+
     }
 
     // Crea la conexion en el puerto indicado y muestra por consola que todo a ido bien
