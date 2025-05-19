@@ -1,0 +1,13 @@
+{
+    "id": "1234",
+    "nombre": "nombre",
+    "apellido1": "apellido1",
+    "apellido2": "apellido2",
+    "email": "email",
+    "password": "password",
+    "fechaCreacion": "01-01-2025",
+    "ultimaConexion": "01-01-2025",
+    "activo": true,
+    "rol": "usuario",
+    "carpeta": "carpeta"
+}

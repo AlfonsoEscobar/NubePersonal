@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 
-const { listFile, renameFile, deleteFile } = require('../controllers/files');
+const { listFile, renameFile, deleteFile } = require('../controllers/files.controller');
 
 
 router.get('/listFile', listFile);

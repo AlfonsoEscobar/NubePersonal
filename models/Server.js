@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 class Server{
 
@@ -35,6 +36,8 @@ class Server{
 
         // Parseo y lectura del body
         this.app.use(express.json());
+        this.app.use(cors());
+
     }
 
     /*
@@ -50,7 +53,7 @@ class Server{
         
         this.app.use(this.path + '/file', require('../routes/file.routes'));
 
-        this.app.use(this.path + '/user', require('../routes/auth.routes'));
+        this.app.use(this.path + '/auth', require('../routes/auth.routes'));
 
     }
 

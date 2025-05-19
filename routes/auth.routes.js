@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 
-const { login, register, validateToken } = require('../controllers/auth');
+const { login, register, validateToken } = require('../controllers/auth.controller');
 
 
 router.get('/login', login);
