@@ -22,10 +22,11 @@ const validateUser = (body) => {
 const escribirUsuarios = (usuarios) => {
     try {
         fs.writeFileSync(USER_FILE, JSON.stringify(usuarios));
+        return true;
     } catch (error) {
-        return error;
+        console.log(error);
+        return false;
     }
-    return true;
 }
 
 module.exports = {

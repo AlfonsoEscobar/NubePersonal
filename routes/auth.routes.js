@@ -6,7 +6,7 @@ const { login, register, validateToken } = require('../controllers/auth.controll
 
 router.get('/login', login);
 
-router.patch('/register', register);
+router.post('/register', register);
 
 router.delete('/validateToken', validateToken);
 

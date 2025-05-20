@@ -1,5 +1,4 @@
 const uuid = require('uuid');
-
 const {leerUsuarios, escribirUsuarios, validateUser} = require('../utils/readUser');
 const {passwordHash} = require('../utils/hashPass');
 
@@ -31,8 +30,10 @@ const register = (req, res) => {
 
     const pass = passwordHash(req.body.password);
 
+    const id = uuid.v4();
+
     const user = {
-        id: usuarios.array.length + 1,
+        id: id,
         nombre: req.body.nombre,
         apellido1: req.body.apellido1,
         apellido2: req.body.apellido2 ? req.body.apellido2 : '',
@@ -42,19 +43,19 @@ const register = (req, res) => {
         ultimaConexion: new Date().toLocaleDateString(),
         activo: true,
         rol: 'usuario',
-        carpeta: 'carpeta'
+        carpeta: req.body.nombre + '_' + id
     }
 
     const userEscrito = escribirUsuarios(user);
 
     if (!userEscrito) {
         return res.status(500).json({
-            msg: 'Error al escribir el usuario'
+            msg: 'Error al guardar el usuario'
         });
     }
 
-    res.status(200).json({
-        msg: 'Register'
+    return res.status(200).json({
+        msg: 'Registro realizado correctamente'
     });
 
 }
