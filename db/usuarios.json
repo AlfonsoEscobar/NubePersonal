@@ -1,0 +1,28 @@
+[
+  {
+    "id": "031c0fad-27de-4962-881d-b4b432e3b009",
+    "nombre": "Alfonso",
+    "apellido1": "Prueba",
+    "apellido2": "Prueba",
+    "email": "alfonso@google.com",
+    "password": "$2b$10$OGO7dlYIKXaXZUmzis6qKuAMP/Yx22xByRs4v/HdczBmqdoNglxLm",
+    "fechaCreacion": "20/5/2025",
+    "ultimaConexion": "20/5/2025",
+    "activo": true,
+    "rol": "usuario",
+    "carpeta": "Alfonso_031c0fad-27de-4962-881d-b4b432e3b009"
+  },
+  {
+    "id": "4dbacaf5-4f9d-4555-90c1-1febfa4a620a",
+    "nombre": "Alfonso",
+    "apellido1": "Prueba",
+    "apellido2": "Prueba",
+    "email": "alfonso1@google.com",
+    "password": "$2b$10$VA8tG6DRNTsb50MHteCu6ePtbNn2XCt5DHkw5OfDwtsGUcE6LqJWe",
+    "fechaCreacion": "20/5/2025",
+    "ultimaConexion": "2025-05-20T20:44:50.975Z",
+    "activo": true,
+    "rol": "usuario",
+    "carpeta": "Alfonso_4dbacaf5-4f9d-4555-90c1-1febfa4a620a"
+  }
+]

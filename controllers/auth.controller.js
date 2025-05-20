@@ -1,27 +1,45 @@
 const uuid = require('uuid');
+const path = require('path');
+
 const {leerUsuarios, escribirUsuarios, validateUser} = require('../utils/readUser');
 const {passwordHash} = require('../utils/hashPass');
+const { login } = require('../services/login');
 
-const login = (req, res) => {
+const logeado = async (req, res) => {
 
-    res.status().json({
-        msg: 'Login'
-    });
+    const { email, password } = req.body;
+
+    const logeado = login(req, res);
+
+    if(logeado){
+        res.status(200).json({
+            msg: 'Login correcto',
+            token
+        });
+    }else{
+        res.status(401).json({
+            msg: 'Usuario o contraseña incorrectas',
+            token
+        });
+    }
 
 }
 
 const register = (req, res) => {
 
     const usuarios = leerUsuarios();
-    if(usuarios.array.length !== 0){
-        usuarios.array.forEach(element => {
-            if (element.email === req.body.email) {
-                return res.status(400).json({
-                    msg: 'El email ya existe'
-                });
-            }
-        });
+    
+    if(usuarios.length > 0){
+        const emailExiste = usuarios.some(element => element.email === req.body.email);
+
+        if (emailExiste) {
+            return res.status(400).json({
+                msg: 'El email ya existe'
+            });
+        }
     }
+
+
     if (!validateUser(req.body)) {
         return res.status(400).json({
             msg: 'Faltan campos obligatorios'
@@ -46,7 +64,8 @@ const register = (req, res) => {
         carpeta: req.body.nombre + '_' + id
     }
 
-    const userEscrito = escribirUsuarios(user);
+    usuarios.push(user);
+    const userEscrito = escribirUsuarios(usuarios);
 
     if (!userEscrito) {
         return res.status(500).json({
@@ -69,7 +88,7 @@ const validateToken = (req, res) => {
 }
 
 module.exports = {
-    login,
+    logeado,
     register,
     validateToken,
 }
