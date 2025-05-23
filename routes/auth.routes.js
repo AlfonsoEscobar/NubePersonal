@@ -8,7 +8,4 @@ router.post('/login', logeado);
 
 router.post('/register', register);
 
-router.delete('/validateToken', validateToken);
-
-
 module.exports = router;

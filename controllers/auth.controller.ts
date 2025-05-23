@@ -30,18 +30,7 @@ const register = (req: Request, res: Response) => {
     })
 }
 
-const validateToken = (req: Request, res: Response) => {
-
-    verifyToken(req.headers.authorization || '');
-
-    res.status(200).json({
-        msg: 'Token válido'
-    });
-
-}
-
 module.exports = {
     logeado,
     register,
-    validateToken,
 }

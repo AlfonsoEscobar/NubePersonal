@@ -1,9 +1,9 @@
-import {Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'tu_secreto_por_defecto'; // Usa tu secreto real
 
-export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
+const authenticateMid = (req: Request, res: Response, next: NextFunction) => {
 
     const authHeader = req.headers.authorization;
 
@@ -15,7 +15,6 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
 
     const token: string = authHeader.split(' ')[1];
 
-
     try {
         const payload = jwt.verify(token, JWT_SECRET) as TokenPayload;
         (req as any).user = payload;
@@ -25,4 +24,9 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
         (error as any).statusCode = 401;
         throw error;
     }
-};
+}
+
+
+module.exports = {
+    authenticateMid,
+}
