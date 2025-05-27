@@ -1,10 +1,12 @@
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+import { Request, Response } from 'express';
+import path from 'path';
+import fs from 'fs';
+
+import { accessDir } from '../../utils/baseDir';
 
 const BASE_DIR = path.join(__dirname, '../../..', 'storage');
 
-const listFile = (req, res) => {
+export const listFile = (req: Request, res: Response) => {
 
 	if(!fs.existsSync(path.join(BASE_DIR, req.body.folder))){
 		res.status(404).json({
@@ -21,7 +23,7 @@ const listFile = (req, res) => {
 
 }
 
-const renameFile = (req, res) => {
+export const renameFile = (req: Request, res: Response) => {
 
 	if(!req.body.name){
         res.status(400).json({
@@ -64,7 +66,7 @@ const renameFile = (req, res) => {
 
 }
 
-const deleteFile = (req, res) => {
+export const deleteFile = (req: Request, res: Response) => {
 
 	if(!req.body.name){
         res.status(400).json({
@@ -96,10 +98,4 @@ const deleteFile = (req, res) => {
     res.json({
         msg: 'Carpeta eliminada correctamente'
     });
-}
-
-module.exports = {
-    listFile,
-	renameFile,
-	deleteFile,
 }

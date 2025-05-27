@@ -2,7 +2,10 @@ const express = require('express');
 const cors = require('cors');
 //const { errorHandler } = require('../middleware/errorHandler.middleware');
 
-class Server{
+export class Server{
+    private app: any;
+    private port: string | number;
+    private path: string;
 
     /* 
         En el constructor se inicializan todas las variables que se necesitan en esta clase
@@ -66,9 +69,4 @@ class Server{
         });
     }
 
-
 }
-
-
-
-module.exports = Server;

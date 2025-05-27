@@ -1,5 +1,5 @@
 
-type Usuario = {
+export type Usuario = {
     id: String,
     nombre: String,
     apellido1: String,

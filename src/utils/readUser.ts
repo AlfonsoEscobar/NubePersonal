@@ -1,5 +1,7 @@
-const path = require('path');
-const fs = require('fs');
+import path from 'path';
+import fs from 'fs';
+
+import { Usuario } from '../models/User';
 
 const USER_FILE = path.join(__dirname, '../db/usuarios.json');
 
@@ -14,16 +16,16 @@ const leerUsuarios = () => {
     return data;
 }
 
-const validateUser = (body) => {
-    if (body == null || !body.email || !body.password || !body.nombre || !body.apellido1) {
+const validateUser = (user: Usuario) => {
+    if (user == null || !user.email || !user.password || !user.nombre || !user.apellido1) {
         return false;
     }
     return true;
 }
 
-const escribirUsuarios = (usuarios) => {
+const escribirUsuarios = (users: Usuario[]) => {
     try {
-        fs.writeFileSync(USER_FILE, JSON.stringify(usuarios));
+        fs.writeFileSync(USER_FILE, JSON.stringify(users));
         return true;
     } catch (error) {
         console.log(error);

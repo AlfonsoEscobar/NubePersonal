@@ -1,14 +1,10 @@
 const bcrypt = require('bcrypt');
 
-const passwordHash = (pass) => {
+export const passwordHash = (pass: string) => {
 
     const salt = bcrypt.genSaltSync();
     const hash = bcrypt.hashSync(pass, salt);
 
     return hash;
 
-}
-
-module.exports = {
-    passwordHash,
 }

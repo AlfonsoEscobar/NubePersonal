@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'tu_secreto_por_defecto'; // Usa tu secreto real
 
-const authenticateMid = (req: Request, res: Response, next: NextFunction) => {
+export const authenticateMid = (req: Request, res: Response, next: NextFunction) => {
 
     const authHeader = req.headers.authorization;
 
@@ -24,9 +24,4 @@ const authenticateMid = (req: Request, res: Response, next: NextFunction) => {
         (error as any).statusCode = 401;
         throw error;
     }
-}
-
-
-module.exports = {
-    authenticateMid,
 }
