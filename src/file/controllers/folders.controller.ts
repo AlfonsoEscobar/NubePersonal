@@ -1,10 +1,11 @@
-const { accessDir } = require('../../utils/baseDir');
-const path = require('path');
-const fs = require('fs');
+import { Request, Response } from 'express';
+import path from 'path';
+import fs from 'fs';
+import { accessDir } from '../../utils/baseDir';
 
 const BASE_DIR = path.join(__dirname, '../../..', 'storage');
 
-const createFolder = (req, res) => {
+export const createFolder = (req: Request, res: Response) => {
 
     if(!req.body.name){
         res.status(400).json({
@@ -44,13 +45,13 @@ const createFolder = (req, res) => {
     }catch(error){
         res.status(400).json({
             msg: 'Error al crear la carpeta',
-            error: error.message
+            error
         });
     }
 
 }
 
-const listFolders = (req, res) => {
+export const listFolders = (req: Request, res: Response) => {
     const folders = fs.readdirSync(BASE_DIR);
 
     res.json({
@@ -58,7 +59,7 @@ const listFolders = (req, res) => {
     });
 }
 
-const listFolder = (req, res) => {
+export const listFolder = (req: Request, res: Response) => {
     if(!req.body.name){
         res.status(400).json({
             msg: 'El nombre de la carpeta es requerido con argumento name'
@@ -89,7 +90,7 @@ const listFolder = (req, res) => {
     });
 }
 
-const deleteFolder = (req, res) => {
+export const deleteFolder = (req: Request, res: Response) => {
     if(!req.body.name){
         res.status(400).json({
             msg: 'El nombre de la carpeta es requerido con argumento name'
@@ -122,7 +123,7 @@ const deleteFolder = (req, res) => {
     });
 }
 
-const renameFolder = (req, res) => {
+export const renameFolder = (req: Request, res: Response) => {
     if(!req.body.name){
         res.status(400).json({
             msg: 'El nombre de la carpeta es requerido con argumento name'
@@ -163,12 +164,4 @@ const renameFolder = (req, res) => {
     }
 
 
-}
-
-module.exports = {
-    createFolder,
-    listFolders,
-    listFolder,
-    deleteFolder,
-    renameFolder
 }

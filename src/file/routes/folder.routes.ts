@@ -1,8 +1,10 @@
-const { Router } = require('express');
-const router = Router();
-const { createFolder, listFolders, listFolder, deleteFolder, renameFolder } = require('../controllers/folders.controller');
 
-router.get('/', (req, res) => {
+import { Request, Response, Router } from 'express';
+import { createFolder, listFolders, listFolder, deleteFolder, renameFolder } from '../controllers/folders.controller';
+
+export const router = Router();
+
+router.get('/', (req: Request, res: Response) => {
     res.json({
         msg: 'get API - controlador'
     });

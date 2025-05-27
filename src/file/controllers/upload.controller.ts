@@ -1,8 +1,7 @@
-
-const { accessDir } = require('../../utils/baseDir');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+import { Request, Response } from 'express';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
 
 const BASE_DIR = path.join(__dirname, '../../..', 'storage');
 
@@ -21,13 +20,13 @@ const storage = multer.diskStorage({
     filename: (req, file, cb) => {
         // Genera un nombre único para evitar sobrescribir
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const fileExtension = path.extname(file.originalname);  // Obtiene la extensión (.jpg, .png, etc.)
+        const fileExtension = path.extname(file.originalname); 
         cb(null, uniqueSuffix + fileExtension);
     }
 });
   
-  // Filtro de archivo (solo imágenes)
-const fileFilter = (req, file, cb) => {
+// Filtro de archivo (solo imágenes)
+const fileFilter = (req: any, file: any, cb: any) => {
     const validExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
     const ext = path.extname(file.originalname).toLowerCase();
     
@@ -39,9 +38,9 @@ const fileFilter = (req, file, cb) => {
 };
   
 // Configuración de multer
-const upload = multer({ storage: storage, fileFilter: fileFilter });
+export const upload = multer({ storage: storage, fileFilter: fileFilter });
 
-const uploadImage = (req, res) => {
+export const uploadImage = (req: Request, res: Response) => {
     
     if (!req.file) {
       return res.status(400).json({ error: 'No se ha subido ninguna imagen.' });
@@ -52,11 +51,3 @@ const uploadImage = (req, res) => {
       file: req.file
     });
 }
-  
-
-
-
-  module.exports = {
-    upload,
-    uploadImage,
-  }

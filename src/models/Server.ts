@@ -1,11 +1,13 @@
-const express = require('express');
-const cors = require('cors');
-//const { errorHandler } = require('../middleware/errorHandler.middleware');
+
+import express from 'express';
+import cors from 'cors';
+import { Router } from 'express';
 
 export class Server{
     private app: any;
     private port: string | number;
     private path: string;
+    private router = Router();
 
     /* 
         En el constructor se inicializan todas las variables que se necesitan en esta clase
@@ -14,6 +16,7 @@ export class Server{
     constructor(){
 
         this.app    = express();
+
         //this.port   = process.env.PORT;
         this.port   = 3000;
 
