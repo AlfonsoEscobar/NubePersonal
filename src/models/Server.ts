@@ -2,6 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import { Router } from 'express';
+import { errorHandler } from '../middleware/errorHandler.middleware';
 
 export class Server{
     private app: any;
@@ -44,7 +45,7 @@ export class Server{
         // Parseo y lectura del body
         this.app.use(express.json());
         this.app.use(cors());
-        //this.app.use(errorHandler());
+        this.app.use(errorHandler);
 
     }
 
