@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+//const { errorHandler } = require('../middleware/errorHandler.middleware');
 
 class Server{
 
@@ -37,7 +38,7 @@ class Server{
         // Parseo y lectura del body
         this.app.use(express.json());
         this.app.use(cors());
-        this.app.use(errorHandler());
+        //this.app.use(errorHandler());
 
     }
 
@@ -48,13 +49,13 @@ class Server{
         // El primer argumento es el String que hara de conexion y el segundo donde se encuentran todas las rutas
         // para asi tenerlas separadas, aqui se pondria si se necesitaran mas rutas para diversos recursos
 
-        this.app.use(this.path + '/folder', require('../routes/folder.routes'));
+        this.app.use(this.path + '/folder', require('../file/routes/folder.routes'));
 
-        this.app.use(this.path + '/upload', require('../routes/upload.routes'));
+        this.app.use(this.path + '/upload', require('../file/routes/upload.routes'));
         
-        this.app.use(this.path + '/file', require('../routes/file.routes'));
+        this.app.use(this.path + '/file', require('../file/routes/file.routes'));
 
-        this.app.use(this.path + '/auth', require('../routes/auth.routes'));
+        this.app.use(this.path + '/auth', require('../auth/routes/auth.routes'));
 
     }
 

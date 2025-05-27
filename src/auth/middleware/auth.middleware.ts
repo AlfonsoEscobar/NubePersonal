@@ -16,7 +16,7 @@ const authenticateMid = (req: Request, res: Response, next: NextFunction) => {
     const token: string = authHeader.split(' ')[1];
 
     try {
-        const payload = jwt.verify(token, JWT_SECRET) as TokenPayload;
+        const payload = jwt.verify(token, JWT_SECRET);
         (req as any).user = payload;
         next()
     } catch (err) {

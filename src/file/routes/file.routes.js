@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const router = Router();
 
-const { validateToken } = require('../services/validateToken');
 const { listFile, renameFile, deleteFile } = require('../controllers/files.controller');
+const { authenticateMid } = require('../../auth/middleware/auth.middleware')
 
 
 router.get('/listFile', authenticateMid, listFile);

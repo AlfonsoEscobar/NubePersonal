@@ -3,15 +3,14 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import  path  from 'path';
-import { error } from 'console';
 
-const {leerUsuarios} = require('../utils/readUser');
+const {leerUsuarios} = require('../../utils/readUser');
 
-const USERS_FILE = path.join(__dirname, '../db/usuarios.json');
+const USERS_FILE = path.join(__dirname, '../../db/usuarios.json');
 const JWT_SECRET = 'Hu50262025';
 
 
-export const login = async (email: string, password: string): Promise<TokenPayload> => {
+export const login = async (email: string, password: string) => {
 
     const usuarios = leerUsuarios();
 
@@ -32,7 +31,7 @@ export const login = async (email: string, password: string): Promise<TokenPaylo
     usuario.ultimaConexion = new Date().toISOString();
     fs.writeFileSync(USERS_FILE, JSON.stringify(usuarios, null, 2));
 
-    const token: TokenPayload = jwt.sign({
+    const token = jwt.sign({
         id: usuario.id,
         email: usuario.email,
         rol: usuario.rol,
@@ -40,7 +39,7 @@ export const login = async (email: string, password: string): Promise<TokenPaylo
     },
         JWT_SECRET,
         { expiresIn: '2h' }
-    ) as unknown as TokenPayload;
+    );
 
     return token;
 

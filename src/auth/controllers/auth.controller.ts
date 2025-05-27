@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 
 import { login } from '../services/login';
 import { registerUser } from '../services/register';
-import { verifyToken } from '../services/validateToken';
 
 
 const logeado = async (req: Request, res: Response) => {

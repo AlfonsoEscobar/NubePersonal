@@ -1,7 +1,8 @@
 import { error } from "console";
 
-const {leerUsuarios, escribirUsuarios, validateUser} = require('../utils/readUser');
-const {passwordHash} = require('../utils/hashPass');
+const {leerUsuarios, escribirUsuarios, validateUser} = require('../../utils/readUser');
+const Usuario = require('../../models/User');
+const {passwordHash} = require('../../utils/hashPass');
 const uuid = require('uuid');
 
 export const registerUser = (body: string): boolean => {
@@ -26,7 +27,7 @@ export const registerUser = (body: string): boolean => {
     const pass = passwordHash(bodyUser.password);
     const id = uuid.v4();
 
-    const user: Usuario = {
+    const user: typeof Usuario = {
         id: id,
         nombre: bodyUser.nombre,
         apellido1: bodyUser.apellido1,

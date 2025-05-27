@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 
-const { logeado, register, validateToken } = require('../controllers/auth.controller');
+const { logeado, register } = require('../controllers/auth.controller');
 
 
 router.post('/login', logeado);

@@ -1,5 +1,5 @@
 
-interface TokenPayload {
+type TokenPayload = {
     id: string;
     email: string;
     rol: string;
