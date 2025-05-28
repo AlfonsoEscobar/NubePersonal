@@ -52,6 +52,13 @@ export const createFolder = (req: Request, res: Response) => {
 }
 
 export const listFolders = (req: Request, res: Response) => {
+    if(!fs.existsSync(path.join(BASE_DIR, req.body.folder))){
+		res.status(404).json({
+			msg: "Carpeta no encontrada."
+		});
+		return;
+	}
+
     const folders = fs.readdirSync(BASE_DIR);
 
     res.json({
