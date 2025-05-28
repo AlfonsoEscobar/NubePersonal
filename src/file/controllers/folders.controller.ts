@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import { accessDir } from '../../utils/baseDir';
 
-const BASE_DIR = path.join(__dirname, '../../..', 'storage');
+const BASE_DIR = path.join(__dirname, '../..', 'storage');
 
 export const createFolder = (req: Request, res: Response) => {
 
