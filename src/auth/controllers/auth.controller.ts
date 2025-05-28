@@ -1,24 +1,27 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 import { login } from '../services/login';
 import { registerUser } from '../services/register';
 
 
-const logeado = async (req: Request, res: Response) => {
+export const logeado = async (req: Request, res: Response, next: NextFunction) => {
 
     const { email, password } = req.body;
 
-    const token = login(email, password);
-
-    res.status(200).json({
-        msg: 'Logeado correctamente',
+    try {
+        const token = await login(email, password);
+        res.status(200).json({
+        msg: 'Logeado correctamente.',
         token
-    });
-    
+    })
+    } catch (error) {
+        next(error);
+    }
 }
 
-const register = (req: Request, res: Response) => {
+export const register = (req: Request, res: Response) => {
     const user = registerUser(req.body);
+
     if (!user) {
         return res.status(400).json({
             msg: 'Error al registrar el usuario'
@@ -27,9 +30,4 @@ const register = (req: Request, res: Response) => {
     res.status(200).json({
         msg: 'Usuario registrado correctamente'
     })
-}
-
-module.exports = {
-    logeado,
-    register,
 }
