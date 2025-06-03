@@ -5,7 +5,7 @@ import { listFile, renameFile, deleteFile } from '../controllers/files.controlle
 
 const router = Router();
 
-router.get('/listFile', authenticateMid, listFile);
+router.get('/listFile', listFile);
 router.patch('/renameFile', renameFile);
 router.delete('/deleteFile', deleteFile);
 

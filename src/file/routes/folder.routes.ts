@@ -1,6 +1,6 @@
 
 import { Request, Response, Router } from 'express';
-import { createFolder, listFolders, listFolder, deleteFolder, renameFolder } from '../controllers/folders.controller';
+import { createFolder, listFolder, deleteFolder, renameFolder } from '../controllers/folders.controller';
 
 export const router = Router();
 
@@ -11,8 +11,6 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 router.post('/createFolder', createFolder);
-
-router.get('/listFolders', listFolders);
 
 router.get('/listFolder', listFolder);
 

@@ -4,10 +4,14 @@ const {leerUsuarios, escribirUsuarios, validateUser} = require('../../utils/read
 const Usuario = require('../../models/User');
 const {passwordHash} = require('../../utils/hashPass');
 const uuid = require('uuid');
+import path from 'path';
+import fs from 'fs';
 
-export const registerUser = (body: string): boolean => {
+const BASE_DIR = path.join(__dirname, '../..', 'storage');
+
+export const registerUser = (body: any): typeof Usuario => {
     
-    const bodyUser = JSON.parse(body);
+    const bodyUser = body;
 
     const usuarios = leerUsuarios();
     
@@ -47,5 +51,14 @@ export const registerUser = (body: string): boolean => {
     if (!userEscrito) {
         throw error('Error al escribir el usuario');
     }
-    return true;
+
+    const folderName = user.carpeta;
+
+    const fullPath = path.join(BASE_DIR, folderName);
+    
+    if(!fs.existsSync(fullPath)){
+        fs.mkdirSync(fullPath, {recursive: true});
+    }
+
+    return user;
 }

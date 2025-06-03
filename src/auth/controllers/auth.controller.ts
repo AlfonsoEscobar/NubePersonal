@@ -28,6 +28,7 @@ export const register = (req: Request, res: Response) => {
         });
     }
     res.status(200).json({
-        msg: 'Usuario registrado correctamente'
+        msg: 'Usuario registrado correctamente',
+        user
     })
 }

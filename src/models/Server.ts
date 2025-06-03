@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import { Router } from 'express';
 import { errorHandler } from '../middleware/errorHandler.middleware';
+import { authenticateMid } from '../auth/middleware/auth.middleware';
 
 export class Server{
     private app: any;
@@ -22,13 +23,17 @@ export class Server{
         this.port   = 3000;
 
         // Path para las conexiones
-        this.path       = '/api';
+        this.path   = '/api';
 
-        // Se usan todos los middleware que se necesitan
         this.middlewares();
 
         // Se inicializan las rutas que se van a usar
         this.routes();
+
+        // Este middleware se debe de usar despues de las rutas para que funcione bien
+        // pero el resto de middleware tienen que ir antes de las rutas por eso saco este
+        // del metodo de los middleware
+        this.app.use(errorHandler);
 
     }
 
@@ -45,7 +50,6 @@ export class Server{
         // Parseo y lectura del body
         this.app.use(express.json());
         this.app.use(cors());
-        this.app.use(errorHandler);
 
     }
 
@@ -53,16 +57,16 @@ export class Server{
         Se usa para poner las rutas que se van a necesitar para haceder a la API 
     */
     routes(){
-        // El primer argumento es el String que hara de conexion y el segundo donde se encuentran todas las rutas
-        // para asi tenerlas separadas, aqui se pondria si se necesitaran mas rutas para diversos recursos
+        // El primer argumento es el String que hara de conexion, el segundo donde se encuentran los middlewares 
+        // y el tercero donde se encuentran todas las rutas para asi tenerlas separadas, aqui se pondria si se necesitaran mas rutas para diversos recursos
 
-        this.app.use(this.path + '/folder', require('../file/routes/folder.routes'));
+        this.app.use(this.path + '/folder', [authenticateMid], require('../file/routes/folder.routes'));
 
-        this.app.use(this.path + '/upload', require('../file/routes/upload.routes'));
+        this.app.use(this.path + '/upload', [authenticateMid], require('../file/routes/upload.routes'));
         
-        this.app.use(this.path + '/file', require('../file/routes/file.routes'));
+        this.app.use(this.path + '/file',   [authenticateMid], require('../file/routes/file.routes'));
 
-        this.app.use(this.path + '/auth', require('../auth/routes/auth.routes'));
+        this.app.use(this.path + '/auth',   [], require('../auth/routes/auth.routes'));
 
     }
 

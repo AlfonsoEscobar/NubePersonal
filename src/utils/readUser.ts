@@ -12,6 +12,9 @@ const leerUsuarios = () => {
     }
 
     const info = fs.readFileSync(USER_FILE, 'utf-8');
+    if(info == null || info == undefined || info == ''){
+        return [];
+    }
     const data = JSON.parse(info);
     return data;
 }

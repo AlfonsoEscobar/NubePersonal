@@ -51,21 +51,6 @@ export const createFolder = (req: Request, res: Response) => {
 
 }
 
-export const listFolders = (req: Request, res: Response) => {
-    if(!fs.existsSync(path.join(BASE_DIR, req.body.folder))){
-		res.status(404).json({
-			msg: "Carpeta no encontrada."
-		});
-		return;
-	}
-
-    const folders = fs.readdirSync(BASE_DIR);
-
-    res.json({
-        folders
-    });
-}
-
 export const listFolder = (req: Request, res: Response) => {
     if(!req.body.name){
         res.status(400).json({
@@ -145,8 +130,15 @@ export const renameFolder = (req: Request, res: Response) => {
         return;
     }
 
-    const resolveOld = path.resolve(BASE_DIR, req.body.name);
-    const resolveNew = path.resolve(BASE_DIR, req.body.newName);
+    const resolveOld = path.resolve(BASE_DIR, req.body.user.carpeta, req.body.name);
+    const resolveNew = path.resolve(BASE_DIR, req.body.user.carpeta, req.body.newName);
+
+    if(resolveOld == resolveNew){
+        res.status(400).json({
+            msg: 'Intentas ponerle el mismo nombre.'
+        });
+        return;
+    }
 
     if(!fs.existsSync(resolveOld)){
         res.status(400).json({
@@ -162,6 +154,7 @@ export const renameFolder = (req: Request, res: Response) => {
         res.status(400).json({
             msg: 'Solo añada el nuevo nombre de la carpeta'
         });
+        return;
     }else{
         fs.renameSync(resolveOld, resolveNew)
         res.json({
