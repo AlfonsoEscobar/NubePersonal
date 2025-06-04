@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import  path  from 'path';
 
-const {leerUsuarios} = require('../../utils/readUser');
+import {leerUsuarios} from '../../utils/readUser';
 
 const USERS_FILE = path.join(__dirname, '../../db/usuarios.json');
 const JWT_SECRET = 'Hu50262025';

@@ -7,25 +7,15 @@ const BASE_DIR = path.join(__dirname, '../..', 'storage');
 
 export const createFolder = (req: Request, res: Response) => {
 
-    if(!req.body.name){
-        res.status(400).json({
-            msg: 'El nombre de la carpeta es requerido con argumento name'
-        });
-        return;
-    }
+    const pathBase = path.join(BASE_DIR, req.user.carpeta);
 
-    const access = accessDir(BASE_DIR, req.body.name);
+    // Evita salir del directorio raíz del usuario
+    if(!accessDir(pathBase, req.body.name)){ res.status(403).json({msg: 'Acceso denegado'}); return;}
 
-    if(!access){
-        res.status(403).json({
-            msg: 'Acceso denegado'
-        });
-        return;
-    }
 
     const folderName = req.body.name;
 
-    const fullPath = path.join(BASE_DIR, folderName);
+    const fullPath = path.join(pathBase, folderName);
 
     try{
         
@@ -52,12 +42,6 @@ export const createFolder = (req: Request, res: Response) => {
 }
 
 export const listFolder = (req: Request, res: Response) => {
-    if(!req.body.name){
-        res.status(400).json({
-            msg: 'El nombre de la carpeta es requerido con argumento name'
-        });
-        return;
-    }
 
     if(!fs.existsSync(path.join(BASE_DIR, req.body.name))){
         res.json({
@@ -83,55 +67,28 @@ export const listFolder = (req: Request, res: Response) => {
 }
 
 export const deleteFolder = (req: Request, res: Response) => {
-    if(!req.body.name){
-        res.status(400).json({
-            msg: 'El nombre de la carpeta es requerido con argumento name'
-        });
-        return;
-    }
 
-    if(!fs.existsSync(path.join(BASE_DIR, req.body.name))){
-        res.json({
-            msg: 'Carpeta no encontrada'
-        });
-        return;
-    }
+    const pathBase = path.join(BASE_DIR, req.user.carpeta);
+    const pathBorrar = path.resolve(pathBase, req.body.name);
 
-    const access = accessDir(BASE_DIR, req.body.name);
+    // Evita salir del directorio raíz del usuario
+    if(!accessDir(pathBase, req.body.name)){ res.status(403).json({msg: 'Acceso denegado'}); return;}
 
-    if(!access){
-        res.status(403).json({
-            msg: 'Acceso denegado'
-        });
-        return;
-    }
+    // Evita borrar la carpeta raíz
+    if(pathBorrar == pathBase){ res.json({msg: 'Peticion Denegada.'}); return; }
 
-    const fullPath = path.join(BASE_DIR, req.body.name);
+    // Verifica existencia
+    if(!fs.existsSync(pathBorrar)){ res.json({msg: 'Carpeta no encontrada'}); return; }
 
-    fs.rmdirSync(fullPath, {recursive: true});
+    fs.rmSync(pathBorrar, {recursive: true});
 
-    res.json({
-        msg: 'Carpeta eliminada correctamente'
-    });
+    res.json({msg: 'Carpeta eliminada correctamente'});
 }
 
 export const renameFolder = (req: Request, res: Response) => {
-    if(!req.body.name){
-        res.status(400).json({
-            msg: 'El nombre de la carpeta es requerido con argumento name'
-        });
-        return;
-    }
 
-    if(!req.body.newName){
-        res.status(400).json({
-            msg: 'El nuevo nombre de la carpeta es requerido con argumento newName'
-        });
-        return;
-    }
-
-    const resolveOld = path.resolve(BASE_DIR, req.body.user.carpeta, req.body.name);
-    const resolveNew = path.resolve(BASE_DIR, req.body.user.carpeta, req.body.newName);
+    const resolveOld = path.resolve(BASE_DIR, req.user.carpeta, req.body.name);
+    const resolveNew = path.resolve(BASE_DIR, req.user.carpeta, req.body.newName);
 
     if(resolveOld == resolveNew){
         res.status(400).json({

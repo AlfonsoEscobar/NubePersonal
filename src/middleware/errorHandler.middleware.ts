@@ -12,5 +12,6 @@ export const errorHandler = (err: any, req: Request, res: Response, next: NextFu
         message,
         detalles: process.env.NODE_ENV === 'development' ? err.stack : undefined
     });
+    return;
 };
 

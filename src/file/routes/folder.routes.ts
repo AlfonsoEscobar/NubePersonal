@@ -1,21 +1,17 @@
 
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
 import { createFolder, listFolder, deleteFolder, renameFolder } from '../controllers/folders.controller';
+import { nameFolder, renameValidatorFolder } from '../schemas/file.schema';
+import { validate } from '../middleware/validate.middleware';
 
 export const router = Router();
 
-router.get('/', (req: Request, res: Response) => {
-    res.json({
-        msg: 'get API - controlador'
-    });
-});
+router.post('/createFolder', validate(nameFolder), createFolder);
 
-router.post('/createFolder', createFolder);
+router.get('/listFolder', validate(nameFolder), listFolder);
 
-router.get('/listFolder', listFolder);
+router.delete('/deleteFolder', validate(nameFolder), deleteFolder);
 
-router.delete('/deleteFolder', deleteFolder);
-
-router.patch('/renameFolder', renameFolder);
+router.patch('/renameFolder', validate(renameValidatorFolder), renameFolder);
 
 module.exports = router;

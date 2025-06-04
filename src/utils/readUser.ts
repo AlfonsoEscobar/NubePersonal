@@ -5,7 +5,7 @@ import { Usuario } from '../models/User';
 
 const USER_FILE = path.join(__dirname, '../db/usuarios.json');
 
-const leerUsuarios = () => {
+export const leerUsuarios = () => {
 
     if (!fs.existsSync(USER_FILE)) {
         return [];
@@ -19,14 +19,7 @@ const leerUsuarios = () => {
     return data;
 }
 
-const validateUser = (user: Usuario) => {
-    if (user == null || !user.email || !user.password || !user.nombre || !user.apellido1) {
-        return false;
-    }
-    return true;
-}
-
-const escribirUsuarios = (users: Usuario[]) => {
+export const escribirUsuarios = (users: Usuario[]) => {
     try {
         fs.writeFileSync(USER_FILE, JSON.stringify(users));
         return true;
@@ -34,10 +27,4 @@ const escribirUsuarios = (users: Usuario[]) => {
         console.log(error);
         return false;
     }
-}
-
-module.exports = {
-    leerUsuarios,
-    escribirUsuarios,
-    validateUser,
 }

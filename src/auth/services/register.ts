@@ -19,13 +19,10 @@ export const registerUser = (body: any): typeof Usuario => {
         const emailExiste = usuarios.some((element: { email: string; }) => element.email === bodyUser.email);
 
         if (emailExiste) {
-            return false;
+            const error = new Error('El email ya existe.');
+        (error as any).statusCode = 409;
+        throw error;
         }
-    }
-
-    const usuarioValido = validateUser(bodyUser);
-    if (!usuarioValido) {
-        return false;
     }
 
     const pass = passwordHash(bodyUser.password);

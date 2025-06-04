@@ -7,7 +7,7 @@
     "email": "alfonso@google.com",
     "password": "$2b$10$QT/q0ZVzAB01Afeik8P.JO6GbpiBzGgatK/ndrwwgmW6pW3ZUzleK",
     "fechaCreacion": "3/6/2025",
-    "ultimaConexion": "2025-06-03T14:10:10.776Z",
+    "ultimaConexion": "2025-06-04T19:06:30.157Z",
     "activo": true,
     "rol": "usuario",
     "carpeta": "Alfonso_e9b14567-6c72-477b-8c6f-2e86d9a4fbf5"
@@ -20,7 +20,7 @@
     "email": "alfonso1@google.com",
     "password": "$2b$10$/sSfT5Q7gqT3N9TSh3SkWeGlbtiJTM0FsxwjBSByn2ziY3BL/R8eS",
     "fechaCreacion": "3/6/2025",
-    "ultimaConexion": "2025-06-03T15:09:16.297Z",
+    "ultimaConexion": "2025-06-04T19:42:29.436Z",
     "activo": true,
     "rol": "usuario",
     "carpeta": "Alfonso1_8102d6af-bd85-4193-b7b2-bd2ad81528b3"
@@ -37,5 +37,18 @@
     "activo": true,
     "rol": "usuario",
     "carpeta": "Alfonso1_0272f380-d638-4257-92c8-0eb56e825706"
+  },
+  {
+    "id": "cd4bcc37-c2ff-4c1c-84cc-bb7569c22735",
+    "nombre": "Toño",
+    "apellido1": "Prueba",
+    "apellido2": "Prueba",
+    "email": "tonio@google.com",
+    "password": "$2b$10$QmCz9OOF7gP3yc/YtjtpWOCPoCIkAUJLX2ftC0TAXuucuVOmQ8xQ2",
+    "fechaCreacion": "4/6/2025",
+    "ultimaConexion": "2025-06-04T20:29:22.238Z",
+    "activo": true,
+    "rol": "usuario",
+    "carpeta": "Toño_cd4bcc37-c2ff-4c1c-84cc-bb7569c22735"
   }
 ]

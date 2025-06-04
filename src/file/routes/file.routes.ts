@@ -1,6 +1,5 @@
 import { Router } from "express";
 
-import { authenticateMid } from '../../auth/middleware/auth.middleware';
 import { listFile, renameFile, deleteFile } from '../controllers/files.controller';
 
 const router = Router();

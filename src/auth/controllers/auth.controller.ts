@@ -9,11 +9,10 @@ export const logeado = async (req: Request, res: Response, next: NextFunction) =
     const { email, password } = req.body;
 
     try {
+
         const token = await login(email, password);
-        res.status(200).json({
-        msg: 'Logeado correctamente.',
-        token
-    })
+        res.status(200).json({ msg: 'Logeado correctamente.', token });
+        return;
     } catch (error) {
         next(error);
     }
@@ -22,13 +21,9 @@ export const logeado = async (req: Request, res: Response, next: NextFunction) =
 export const register = (req: Request, res: Response) => {
     const user = registerUser(req.body);
 
-    if (!user) {
-        return res.status(400).json({
-            msg: 'Error al registrar el usuario'
-        });
-    }
-    res.status(200).json({
-        msg: 'Usuario registrado correctamente',
-        user
-    })
+    if (!user) { res.status(400).json({ msg: 'Error al registrar el usuario' }); return; }
+    
+    res.status(200).json({ msg: 'Usuario registrado correctamente', user });
+
+    return;
 }
