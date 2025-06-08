@@ -1,69 +1,35 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import fs from 'fs';
 import { accessDir } from '../../utils/baseDir';
+import { createFolderService } from '../services/createFolder.service';
+import { listFolderService } from '../services/listFolder.service';
 
 const BASE_DIR = path.join(__dirname, '../..', 'storage');
 
 export const createFolder = (req: Request, res: Response) => {
 
-    const pathBase = path.join(BASE_DIR, req.user.carpeta);
+    const createF = createFolderService(req.user.carpeta, req.body.name);
 
-    // Evita salir del directorio raíz del usuario
-    if(!accessDir(pathBase, req.body.name)){ res.status(403).json({msg: 'Acceso denegado'}); return;}
-
-
-    const folderName = req.body.name;
-
-    const fullPath = path.join(pathBase, folderName);
-
-    try{
-        
-        if(!fs.existsSync(fullPath)){
-            fs.mkdirSync(fullPath, {recursive: true});
-        }else{
-            res.json({
-                msg: 'La carpeta ya existe',
-                fullPath
-            });
-        }
-
-        res.json({
-            msg: 'Carpeta creada correctamente',
-            fullPath
-        });
-    }catch(error){
-        res.status(400).json({
-            msg: 'Error al crear la carpeta',
-            error
-        });
+    if(!createF){
+        res.status(400).json({message: "La carpeta no se ha podido crear."});
+        return;
     }
+    res.status(200).json({message: "La carpeta se ha creado correctamente."});
 
 }
 
-export const listFolder = (req: Request, res: Response) => {
+export const listFolder = (req: Request, res: Response, next: NextFunction) => {
 
-    if(!fs.existsSync(path.join(BASE_DIR, req.body.name))){
-        res.json({
-            msg: 'Carpeta no encontrada'
+    try {
+        const list = listFolderService(req.user.carpeta, req.body.name);
+        res.status(200).json({
+            list
         });
         return;
+    } catch (error) {
+        next(error);
     }
-
-    const access = accessDir(BASE_DIR, req.body.name);
-
-    if(!access){
-        res.status(403).json({
-            msg: 'Acceso denegado'
-        });
-        return;
-    }
-    
-    const folders = fs.readdirSync(path.join(BASE_DIR, req.body.name));
-    
-    res.json({
-        folders
-    });
 }
 
 export const deleteFolder = (req: Request, res: Response) => {

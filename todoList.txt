@@ -1,0 +1,12 @@
+
+
+Revisar todos los 'services' para que desde ellos no se envien ninguna respuesta al frontend,
+solo los controllers son lo que envian al front.
+
+Revisar donde podemos poner errores que lo recojan el next() para hacerlo mas legible.
+
+Seguir con todo lo relacionado con el tema folder.
+
+Ponerme con el tema file, crear services, refactorizar y demas.
+
+Tal vez poner el export del postman para tener todas las llamadas en el github.

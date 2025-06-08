@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = 'Hu50262025';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 declare global {
     namespace Express {
@@ -31,6 +31,10 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
 
     const token: string = authHeader.split(' ')[1];
     
+    if (!JWT_SECRET) {
+        throw new Error('JWT_SECRET no está definida');
+    }
+
     try {
         const payload = await verifyJwt(token, JWT_SECRET);
         req.user = payload;

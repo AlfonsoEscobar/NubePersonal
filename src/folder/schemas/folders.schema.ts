@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const nameFolder = z.object({
     name: z.string().min(3, {message: 'El nombre debe de tener al menos 3 caracteres'})
                         .max(255, {message: 'El nombre no debe de tener mas de 20 caracteres'})
-                        .regex(/^[a-zA-ZñÑ0-9_-]+$/, {message: 'No puede tener caracteres especiales'})
+                        .regex(/^(?!.*\.\.)(?!.*\\)(?!.*[:*?"<>|])[A-Za-z0-9 _/-]*$/, {message: 'No puede tener caracteres especiales'})
                         .refine(name => name !== '.' && name !== '..', {
                             message: 'Nombre inválido: no puede ser "." o ".."',
                           })
@@ -20,7 +20,7 @@ export const nameFolder = z.object({
 export const renameValidatorFolder = z.object({
     name: z.string().min(3, {message: 'El nombre debe de tener al menos 3 caracteres'})
                         .max(255, {message: 'El nombre no debe de tener mas de 20 caracteres'})
-                        .regex(/^[a-zA-ZñÑ0-9_-]+$/, {message: 'No puede tener caracteres especiales'})
+                        .regex(/^(?!.*\.\.)(?!.*\\)(?!.*[:*?"<>|])[A-Za-z0-9 _/-]*$/, {message: 'No puede tener caracteres especiales'})
                         .refine(name => name !== '.' && name !== '..', {
                             message: 'Nombre inválido: no puede ser "." o ".."',
                           })
@@ -34,7 +34,7 @@ export const renameValidatorFolder = z.object({
 
     newName: z.string().min(3, {message: 'El nombre debe de tener al menos 3 caracteres'})
                         .max(255, {message: 'El nombre no debe de tener mas de 20 caracteres'})
-                        .regex(/^[a-zA-ZñÑ0-9_-]+$/, {message: 'No puede tener caracteres especiales'})
+                        .regex(/^(?!.*\.\.)(?!.*\\)(?!.*[:*?"<>|])[A-Za-z0-9 _/-]*$/, {message: 'No puede tener caracteres especiales'})
                         .refine(name => name !== '.' && name !== '..', {
                             message: 'Nombre inválido: no puede ser "." o ".."',
                           })

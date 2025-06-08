@@ -7,7 +7,7 @@ import  path  from 'path';
 import {leerUsuarios} from '../../utils/readUser';
 
 const USERS_FILE = path.join(__dirname, '../../db/usuarios.json');
-const JWT_SECRET = 'Hu50262025';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 
 export const login = async (email: string, password: string) => {
@@ -30,6 +30,10 @@ export const login = async (email: string, password: string) => {
 
     usuario.ultimaConexion = new Date().toISOString();
     fs.writeFileSync(USERS_FILE, JSON.stringify(usuarios, null, 2));
+
+    if (!JWT_SECRET) {
+        throw new Error('JWT_SECRET no está definida');
+    }
 
     const token = jwt.sign({
         id: usuario.id,
