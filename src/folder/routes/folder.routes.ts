@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import { createFolder, listFolder, deleteFolder, renameFolder } from '../controllers/folders.controller';
 import { nameFolder, renameValidatorFolder } from '../schemas/folders.schema';
-import { validate } from '../../file/middleware/validate.middleware';
+import { validate } from '../middleware/validate.middleware';
 
 export const router = Router();
 
