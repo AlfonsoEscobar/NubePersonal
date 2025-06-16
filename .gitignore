@@ -1,6 +1,10 @@
 node_modules
+
 storage
+
+src/db/usuarios.json
 
 .vscode
 
 .env
+
