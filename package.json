@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --watch src --ext ts --exec ts-node src/index.ts",
-    "build": "tsc && cpx src/db/usuarios.json dist/db",
+    "build": "tsc",
     "start": "node dist/index.js",
     "deploy": "npx prisma generate && npx prisma migrate deploy && npm run build"
   },
