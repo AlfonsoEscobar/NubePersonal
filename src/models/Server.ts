@@ -72,6 +72,7 @@ export class Server{
             console.log(`METHOD: ${req.method} - PATH: ${req.path}`);
             console.log('HEADERS:', req.headers);
             console.log('BODY:', req.body);
+            next();
             });
 
         this.app.use(this.path + '/folder', [authenticateMid], require('../folder/routes/folder.routes'));
