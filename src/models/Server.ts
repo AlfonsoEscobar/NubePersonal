@@ -1,6 +1,7 @@
 
 import express from 'express';
 import cors from 'cors';
+import { NextFunction, Request, Response } from 'express';
 import { Router } from 'express';
 import { errorHandler } from '../error.middleware/errorHandler.middleware';
 import { authenticateMid } from '../auth/middleware/auth.middleware';
@@ -22,6 +23,12 @@ export class Server{
 
         //this.port   = process.env.PORT;
         this.port   = PORT;
+
+        this.app.use((req: Request, res: Response, next: NextFunction) => {
+            console.log(`${req.method} ${req.path}`);
+            next();
+        });
+
 
         // Path para las conexiones
         this.path   = '/api';
