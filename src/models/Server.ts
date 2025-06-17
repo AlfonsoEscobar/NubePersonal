@@ -4,6 +4,7 @@ import cors from 'cors';
 import { Router } from 'express';
 import { errorHandler } from '../error.middleware/errorHandler.middleware';
 import { authenticateMid } from '../auth/middleware/auth.middleware';
+import { PORT } from '../config/env';
 
 export class Server{
     private app: any;
@@ -20,7 +21,7 @@ export class Server{
         this.app    = express();
 
         //this.port   = process.env.PORT;
-        this.port   = 3000;
+        this.port   = PORT;
 
         // Path para las conexiones
         this.path   = '/api';
