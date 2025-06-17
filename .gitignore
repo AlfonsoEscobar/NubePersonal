@@ -1,10 +1,7 @@
 node_modules
-
 storage
-
 .vscode
-
 .env
-
 dist
 /src/generated/prisma
+todoList.txt
