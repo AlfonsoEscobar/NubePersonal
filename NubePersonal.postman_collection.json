@@ -17,9 +17,16 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful POST request\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
 									""
 								],
 								"type": "text/javascript",
@@ -32,7 +39,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nombre\": \"Alfonso\",\n    \"apellido1\": \"Prueba\",\n    \"apellido2\": \"Prueba\",\n    \"email\": \"alfonso@google.com\",\n    \"password\": \"Hola1234\"\n}",
+							"raw": "{\n    \"nombre\": \"Cata\",\n    \"apellido1\": \"Prueba\",\n    \"apellido2\": \"Prueba\",\n    \"email\": \"cata@google.com\",\n    \"password\": \"Hola1234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -61,9 +68,13 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful POST request\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-									"});",
+									"const response = pm.response.json();",
+									"",
+									"if (response.token) {",
+									"  pm.environment.set(\"token\", response.token);",
+									"} else {",
+									"  console.warn(\"No se encontró el token en la respuesta.\");",
+									"}",
 									""
 								],
 								"type": "text/javascript",
@@ -76,7 +87,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"alfonso@google.com\",\n    \"password\": \"Hola1234\"\n}",
+							"raw": "{\n    \"email\": \"cata@google.com\",\n    \"password\": \"Hola1234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -191,7 +202,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"..\"\r\n}",
+							"raw": "{\r\n    \"name\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -241,7 +252,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    //nombre de la carpeta que se va a renombrar\n\t\"name\": \"montaña\",\n    // nuevo nombre para la carpeta\n    \"newName\": \"Vacaciones\"\n}",
+							"raw": "{\n    //nombre de la carpeta que se va a renombrar\n\t\"name\": \"montania\",\n    // nuevo nombre para la carpeta\n    \"newName\": \"Vacaciones\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -484,16 +495,6 @@
 					""
 				]
 			}
-		}
-	],
-	"variable": [
-		{
-			"key": "id",
-			"value": "1"
-		},
-		{
-			"key": "base_url",
-			"value": "https://postman-rest-api-learner.glitch.me/"
 		}
 	]
 }

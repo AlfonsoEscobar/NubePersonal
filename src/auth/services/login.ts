@@ -3,20 +3,14 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import  path  from 'path';
-
-import {leerUsuarios} from '../../utils/readUser';
+import prisma from '../../config/prisma';
 
 import { JWT_SECRET } from '../../config/env';
 
-const USERS_FILE = path.join(__dirname, '../../db/usuarios.json');
-
-
-
 export const login = async (email: string, password: string) => {
 
-    const usuarios = leerUsuarios();
+    const usuario = await prisma.usuario.findUnique({where: {email}});
 
-    const usuario = usuarios.find((u: { email: any; }) => u.email === email);
     if(!usuario){
         const error = new Error('Usuario o contraseña incorrecta');
         (error as any).statusCode = 401;
@@ -30,8 +24,13 @@ export const login = async (email: string, password: string) => {
         throw error;
     }
 
-    usuario.ultimaConexion = new Date().toISOString();
-    fs.writeFileSync(USERS_FILE, JSON.stringify(usuarios, null, 2));
+    usuario.ultimaConexion = new Date();
+    await prisma.usuario.update({
+        where: { email },
+        data: {
+          ultimaConexion: new Date()
+        }
+      });
 
     const token = jwt.sign({
         id: usuario.id,

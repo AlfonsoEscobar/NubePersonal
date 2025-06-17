@@ -1,0 +1,27 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id             String   @id @default(uuid())
+  nombre         String
+  apellido1      String
+  apellido2      String?
+  email          String   @unique
+  password       String
+  fechaCreacion  DateTime @default(now())
+  ultimaConexion DateTime?
+  activo         Boolean  @default(true)
+  rol            String   @default("usuario")
+  carpeta        String   // nombre base de su carpeta
+  espacioMaximoMB Int      @default(100) // por ejemplo 100 MB
+  archivosMaximos Int      @default(100)
+
+}

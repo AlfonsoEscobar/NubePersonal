@@ -7,3 +7,4 @@ storage
 .env
 
 dist
+/src/generated/prisma

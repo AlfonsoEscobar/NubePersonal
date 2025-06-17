@@ -18,8 +18,8 @@ export const logeado = async (req: Request, res: Response, next: NextFunction) =
     }
 }
 
-export const register = (req: Request, res: Response) => {
-    const user = registerUser(req.body);
+export const register = async (req: Request, res: Response) => {
+    const user = await registerUser(req.body);
 
     if (!user) { res.status(400).json({ msg: 'Error al registrar el usuario' }); return; }
     

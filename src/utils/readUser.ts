@@ -1,21 +1,15 @@
 import path from 'path';
 import fs from 'fs';
+import prisma from '../config/prisma';
 
 import { Usuario } from '../models/User';
 
 const USER_FILE = path.join(__dirname, '../db/usuarios.json');
 
-export const leerUsuarios = () => {
+export const leerUsuarios = async () => {
 
-    if (!fs.existsSync(USER_FILE)) {
-        return [];
-    }
+    const data = await prisma.usuario.findMany();
 
-    const info = fs.readFileSync(USER_FILE, 'utf-8');
-    if(info == null || info == undefined || info == ''){
-        return [];
-    }
-    const data = JSON.parse(info);
     return data;
 }
 
