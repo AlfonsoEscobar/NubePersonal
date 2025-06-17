@@ -68,6 +68,12 @@ export class Server{
         // El primer argumento es el String que hara de conexion, el segundo donde se encuentran los middlewares 
         // y el tercero donde se encuentran todas las rutas para asi tenerlas separadas, aqui se pondria si se necesitaran mas rutas para diversos recursos
 
+        this.app.use('/', (req: Request, res: Response, next: NextFunction) => {
+            console.log(`METHOD: ${req.method} - PATH: ${req.path}`);
+            console.log('HEADERS:', req.headers);
+            console.log('BODY:', req.body);
+            });
+
         this.app.use(this.path + '/folder', [authenticateMid], require('../folder/routes/folder.routes'));
 
         this.app.use(this.path + '/upload', [authenticateMid], require('../file/routes/upload.routes'));
